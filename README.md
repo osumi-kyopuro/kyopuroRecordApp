@@ -1,4 +1,4 @@
-# kyopuroApps
+# kyopuroRecordApp
 
 ## 作る経緯
 - 競プロの精進記録をメモできるサービスがあるといいなと思ったから
