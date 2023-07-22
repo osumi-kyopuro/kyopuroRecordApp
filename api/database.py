@@ -4,13 +4,6 @@ import mysql.connector
 
 app = FastAPI()
 
-# RDS接続情報
-db_config = {
-    'user': 'admin',
-    'password': '*19991123Oy',
-    'host': 'database-1.cy0pswpd42h6.ap-northeast-1.rds.amazonaws.com',
-    'database': 'my_schema'
-}
 
 @app.on_event("startup")
 async def startup_db_client():
