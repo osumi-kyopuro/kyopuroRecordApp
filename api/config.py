@@ -1,5 +1,5 @@
 import os
-from dataclasses import dataclass
+from dataclasses import asdict, dataclass
 
 from dotenv import load_dotenv
 
@@ -15,6 +15,8 @@ def getenv(env_name: str):
 
 @dataclass(frozen=True)
 class DbConfig:
+    """RDS接続情報"""
+
     user: str
     password: str
     host: str
@@ -26,6 +28,11 @@ class DbConfig:
             getenv("user"), getenv("password"), getenv("host"), getenv("database")
         )
 
+    def to_dict(self) -> dict:
+        return asdict(self)
+
 
 if __name__ == "__main__":
-    print(DbConfig.get())
+    d = DbConfig.get()
+    print(d)
+    print(d.to_dict())
