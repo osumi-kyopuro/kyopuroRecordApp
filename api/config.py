@@ -17,10 +17,10 @@ def getenv(env_name: str) -> str:
 class DbConfig:
     """RDS接続情報"""
 
-    __user: str
-    __password: str
-    __host: str
-    __database: str
+    user: str
+    password: str
+    host: str
+    database: str
 
     @staticmethod
     def get() -> "DbConfig":
