@@ -1,7 +1,16 @@
 import mysql.connector
 from fastapi import FastAPI
+from os.path import dirname, abspath
+import sys
+
+# crud.pyから1つ上のディレクトリの絶対パスを取得し、sys.pathに登録する
+parent_dir = dirname(abspath(__file__)) # 追加
+if parent_dir not in sys.path: # 追加
+    sys.path.append(parent_dir) # 追加
 
 from config import DbConfig
+
+
 
 app = FastAPI()
 db_config = DbConfig.get()
@@ -33,7 +42,7 @@ async def getUserInfo(userName: str):
         return {"error": str(e)}
 
 
-@app.get("/getUserInfo/")
+@app.get("/getUserInfo")
 async def getAllUserInfo():
     try:
         # テーブルのデータを取得
