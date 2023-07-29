@@ -1,19 +1,9 @@
 version: '3'
 
 services: 
-  # db:
-  #   image: mysql:8.0.14
-  #   platform: linux/amd64
-  #   restart: always
-  #   ports:
-  #     - "3306:3306"
-  #   volumes:
-  #     - ./:/var/lib/mysql
-  #   environment:
-  #     MYSQL_ROOT_PASSWORD: 
-
-  kyopuro_record_app:
-    container_name: 'kyopuro_record_app'
+  
+  kyopurorecordapp:
+    container_name: 'kyopurorecordapp'
     build:
       context: './'
       dockerfile: 'Dockerfile'
@@ -21,4 +11,28 @@ services:
       - './api:/code/api'
     ports: 
       - '80:80'
-    command: ["uvicorn", "api.crud:app", "--host", "0.0.0.0", "--port", "80"]
+    depends_on:
+      - mysql
+    command: ["uvicorn", "api.crud:app", "--host", "localhost", "--port", "80"]
+    networks:
+      - my_network
+
+  mysql:
+    container_name: mysql
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_USER: user
+      MYSQL_ROOT_PASSWORD: mysql
+      MYSQL_DATABASE: db
+      MYSQL_PASSWORD: password
+    volumes:
+      - ./initdb:/docker-entrypoint-initdb.d
+    ports:
+      - "3307:3306"
+    networks:
+     - my_network
+
+networks:
+  my_network:
+    driver: bridge
