@@ -19,7 +19,20 @@ db_config = DbConfig.get()
 @app.on_event("startup")
 async def startup_db_client():
     # MySQLクライアントを初期化
-    app.db_connection = mysql.connector.connect(**db_config.to_dict())
+    #print(db_config.to_dict())
+
+    db_config={
+        'user': 'user', 'password': 'password', 'host': 'mysql', 'database': 'db'
+    }
+
+    app.db_connection = mysql.connector.connect(
+        user='root',
+        password='mysql',
+        host='mysql',
+        database='db'
+    )
+    #app.db_connection = mysql.connector.connect(**db_config.to_dict())
+
     app.db_cursor = app.db_connection.cursor()
 
 
