@@ -18,4 +18,13 @@
 - インフラ
     - AWS
 
-## ディレクトリ構造
+## Docker環境で起動する際のコマンド
+```
+1. docker-compose up mysql
+2. docker-compose up kyopurorecordapp
+```
+
+## Docker環境で終了する際のコマンド
+```
+- docker-compose down
+```
