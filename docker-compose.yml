@@ -1,6 +1,23 @@
 version: '3'
 
 services: 
+
+  mysql:
+    container_name: mysql
+    image: mysql:latest
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_USER: user
+      MYSQL_ROOT_PASSWORD: mysql
+      MYSQL_DATABASE: db
+      MYSQL_PASSWORD: password
+    volumes:
+      - ./initdb:/docker-entrypoint-initdb.d
+    networks:
+      my_network:
+        ipv4_address: 192.168.2.2
   
   kyopurorecordapp:
     container_name: 'kyopurorecordapp'
@@ -18,21 +35,6 @@ services:
       - my_network
     links:
       - mysql
-
-  mysql:
-    container_name: mysql
-    image: mysql:latest
-    restart: always
-    environment:
-      MYSQL_USER: user
-      MYSQL_ROOT_PASSWORD: mysql
-      MYSQL_DATABASE: db
-      MYSQL_PASSWORD: password
-    volumes:
-      - ./initdb:/docker-entrypoint-initdb.d
-    networks:
-      my_network:
-        ipv4_address: 192.168.2.2
 
 
 networks:
