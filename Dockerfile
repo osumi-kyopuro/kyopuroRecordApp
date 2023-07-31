@@ -14,7 +14,7 @@ RUN apt update
 RUN apt install iputils-ping net-tools -y
 
 # apiモジュールをコンテナ内にコピー
-COPY ./api /code/api
+COPY ./backend /code/backend
 
 
 #CMD ["uvicorn", "api.crud:app", "--host", "0.0.0.0", "--port", "80"]
