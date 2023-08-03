@@ -12,9 +12,7 @@ RUN pip install mysql-connector-python
 RUN pip install python-dotenv
 RUN apt update
 RUN apt install iputils-ping net-tools -y
+RUN pip install --upgrade sqlalchemy
 
-# apiモジュールをコンテナ内にコピー
-COPY ./api /code/api
-
-
-#CMD ["uvicorn", "api.crud:app", "--host", "0.0.0.0", "--port", "80"]
+# backendモジュールをコンテナ内にコピー
+COPY ./backend /code/backend
