@@ -21,11 +21,12 @@ class DbConfig:
     password: str
     host: str
     database: str
+    port: str
 
     @staticmethod
     def get() -> "DbConfig":
         return DbConfig(
-            getenv("user"), getenv("password"), getenv("host"), getenv("database")
+            getenv("user"), getenv("password"), getenv("host"), getenv("database"),getenv("port")
         )
 
     def to_dict(self) -> dict:

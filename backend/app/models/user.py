@@ -1,9 +1,10 @@
-from typing import Union
-from fastapi import FastAPI
-from pydantic import BaseModel
+from sqlalchemy import Column, String,Integer
+from ..databases.database import Base
 
-class UserInfo(BaseModel):
-    user_id:int
-    user_name:str
-    password:str
+class UserInfo(Base):
+    __tablename__ = 'user_info'
+    
+    user_id=Column(Integer,primary_key=True)
+    user_name=Column(String)
+    user_password=Column(String)
 
