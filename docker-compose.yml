@@ -20,8 +20,7 @@ services:
       timeout: 20s
       retries: 10
     networks:
-      my_network:
-        ipv4_address: 192.168.2.2
+      - my_network
   
   kyopurorecordapp:
     container_name: 'kyopurorecordapp'
