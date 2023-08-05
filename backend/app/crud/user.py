@@ -17,7 +17,7 @@ def create_user(db: Session, user: UserBase):
         db.commit()
         db.refresh(db_user)
         return db_user
-    return JSONResponse(status_code=500, content={"detail": f"user_name is exists"})
+    return JSONResponse(status_code=500, content={"detail": f"user_name exists in database"})
 
 def update_user(db: Session, user_name: str, user: UserBase):
     db_user = db.query(UserInfo).filter(UserInfo.user_name == user_name).first()
