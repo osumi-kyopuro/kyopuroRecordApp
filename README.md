@@ -2,7 +2,7 @@
 
 ## 作る経緯
 - 競プロの精進記録をメモできるサービスがあるといいなと思ったから
-- Pythonが直感的にかけて好きだから
+- Pythonが直感的に書けて好きだから
 - PythonのフレームワークFastAPIを使ってみたかったから
 - 実務経験を積んで実際にどれだけ開発できるようになったか確かめたかったから
 
@@ -21,8 +21,7 @@
 
 ## Docker環境で起動する際のコマンド
 ```
-1. docker-compose up mysql
-2. docker-compose up kyopurorecordapp
+docker-compose up -d
 ```
 
 ## Docker環境で終了する際のコマンド
