@@ -39,50 +39,28 @@ kyopuroRecordApp
 ├── backend
 │   ├── app
 │   │   ├── __init__.py
-│   │   ├── __pycache__
-│   │   │   ├── __init__.cpython-39.pyc
-│   │   │   └── main.cpython-39.pyc
 │   │   ├── api
 │   │   │   ├── __init__.py
-│   │   │   ├── __pycache__
-│   │   │   │   ├── __init__.cpython-39.pyc
-│   │   │   │   ├── record.cpython-39.pyc
-│   │   │   │   └── user.cpython-39.pyc
 │   │   │   ├── record.py
 │   │   │   └── user.py
 │   │   ├── crud
 │   │   │   ├── __init__.py
-│   │   │   ├── __pycache__
-│   │   │   │   ├── __init__.cpython-39.pyc
-│   │   │   │   └── user.cpython-39.pyc
 │   │   │   └── user.py
 │   │   ├── databases
 │   │   │   ├── __init__.py
-│   │   │   ├── __pycache__
-│   │   │   │   ├── __init__.cpython-39.pyc
-│   │   │   │   └── database.cpython-39.pyc
 │   │   │   └── database.py
 │   │   ├── dependencies
 │   │   │   ├── __init__.py
-│   │   │   ├── __pycache__
-│   │   │   │   ├── __init__.cpython-39.pyc
-│   │   │   │   └── config.cpython-39.pyc
 │   │   │   ├── authentication.py
 │   │   │   ├── authorization.py
 │   │   │   └── config.py
 │   │   ├── main.py
 │   │   ├── models
 │   │   │   ├── __init__.py
-│   │   │   ├── __pycache__
-│   │   │   │   ├── __init__.cpython-39.pyc
-│   │   │   │   └── user.cpython-39.pyc
 │   │   │   ├── record.py
 │   │   │   └── user.py
 │   │   ├── schemas
 │   │   │   ├── __init__.py
-│   │   │   ├── __pycache__
-│   │   │   │   ├── __init__.cpython-39.pyc
-│   │   │   │   └── user.cpython-39.pyc
 │   │   │   └── user.py
 │   │   └── services
 │   │       ├── __init__.py
