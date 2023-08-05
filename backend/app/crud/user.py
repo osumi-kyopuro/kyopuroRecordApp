@@ -29,5 +29,4 @@ def delete_user(db: Session, user_id: int):
     if db_user:
         db.delete(db_user)
         db.commit()
-        db.refresh(db_user)
-    return db_user
+    return {"message":"User deleted successfully"}

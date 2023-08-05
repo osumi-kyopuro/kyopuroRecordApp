@@ -38,11 +38,11 @@ def update_existing_user(user_id: int, user: UserInfo, db: Session = Depends(get
     db_user = get_user(db, user_id=user_id)
     if db_user is None:
         raise HTTPException(status_code=404, detail="User not found")
-    return update_user(db, db_user=db_user, user_update=user)
+    return update_user(db, user_id=db_user.user_id, user=user)
 
-@router.delete("/users/{user_id}", response_model=UserInfo)
+@router.delete("/users/{user_id}")
 def delete_existing_user(user_id: int, db: Session = Depends(get_db)):
     db_user = get_user(db, user_id=user_id)
     if db_user is None:
         raise HTTPException(status_code=404, detail="User not found")
-    return delete_user(db, db_user=db_user)
+    return delete_user(db, user_id=db_user.user_id)
