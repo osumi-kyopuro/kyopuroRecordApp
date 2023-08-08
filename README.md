@@ -44,6 +44,7 @@ kyopuroRecordApp
 │   │   │   └── user.py
 │   │   ├── crud
 │   │   │   ├── __init__.py
+│   │   │   ├── record.py
 │   │   │   └── user.py
 │   │   ├── databases
 │   │   │   ├── __init__.py
@@ -60,6 +61,7 @@ kyopuroRecordApp
 │   │   │   └── user.py
 │   │   ├── schemas
 │   │   │   ├── __init__.py
+│   │   │   ├── record.py
 │   │   │   └── user.py
 │   │   └── services
 │   │       ├── __init__.py

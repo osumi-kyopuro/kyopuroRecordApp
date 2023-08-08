@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from .api import user 
+from .api import user,record 
 from .databases.database import engine,Base
 
 app = FastAPI()
@@ -9,4 +9,4 @@ Base.metadata.create_all(bind=engine)
 app.include_router(user.router, prefix="/api", tags=["userInfoAPI"])
 
 # 精進記録APIのルーティングを追加
-#app.include_router(record.router, prefix="/api", tags=["records"])
+app.include_router(record.router, prefix="/api", tags=["recordAPI"])

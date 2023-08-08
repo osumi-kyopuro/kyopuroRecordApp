@@ -26,21 +26,21 @@ def read_users(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
     users = get_users(db, skip=skip, limit=limit)
     return users
 
-@router.get("/userInfo/{user_name}", response_model=UserInfo)
+@router.get("/userInfo/user/{user_name}", response_model=UserInfo)
 def read_user(user_name: str, db: Session = Depends(get_db)):
     db_user = get_user(db, user_name=user_name)
     if db_user is None:
         raise HTTPException(status_code=404, detail="User not found")
     return db_user
 
-@router.put("/userInfo/{user_name}", response_model=UserInfo)
+@router.put("/userInfo/user/{user_name}", response_model=UserInfo)
 def update_existing_user(user_name: str, user: UserBase, db: Session = Depends(get_db)):
     db_user = get_user(db, user_name=user_name)
     if db_user is None:
         raise HTTPException(status_code=404, detail="User not found")
     return update_user(db, user_name=db_user.user_name, user=user)
 
-@router.delete("/userInfo/{user_name}")
+@router.delete("/userInfo/user/{user_name}")
 def delete_existing_user(user_name: str, db: Session = Depends(get_db)):
     db_user = get_user(db, user_name=user_name)
     if db_user is None:
