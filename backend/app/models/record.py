@@ -1,4 +1,4 @@
-from sqlalchemy import Column,String,Integer
+from sqlalchemy import Column,String,Integer,Date
 from ..databases.database import Base
 
 class Record(Base):
@@ -16,5 +16,5 @@ class Record(Base):
     question_name=Column(String(20))
     code_link=Column(String(20))
     memo=Column(String(40))
-    ac_day=Column(String(20))
+    ac_day=Column(Date)
     

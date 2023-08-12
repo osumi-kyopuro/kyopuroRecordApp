@@ -27,7 +27,6 @@ def create_new_record(record:RecordRequestBody,db:Session=Depends(get_db)):
 @router.get("/record/user/{user_name}",response_model=List[Record])
 def read_records(user_name:str,db:Session=Depends(get_db)):
     records=get_records(db,user_name=user_name)
-    print(records)
     return records
 
 @router.get("/record/id/{record_id}",response_model=Record)
