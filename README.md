@@ -9,7 +9,7 @@
 
 ## アーキテクチャ
 - バックエンド
-  - Python3,fastAPI
+    - Python3,fastAPI
 - フロントエンド
     - TypeScript,Vue.js
 - DB
@@ -81,4 +81,4 @@ kyopuroRecordApp
 ```
 # コーディング規約
 - 基本的にはスネークケースで実装する
-- modelやschemaの定義だけキャメルケースを使用する
+- modelやschemaの定義、ルーティングのパスだけキャメルケースを使用する
