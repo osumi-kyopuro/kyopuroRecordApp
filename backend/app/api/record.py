@@ -4,8 +4,9 @@ from typing import List
 from ..schemas.record import Record,RecordRequestBody
 from ..crud.record import get_records,get_record,create_record,update_record,delete_record
 from ..databases.database import SessionLocal,engine,Base
+from fastapi.responses import JSONResponse
 
-Base.metadata.create_all(bind=engine)
+Base.metadata.create_all(bind=engine,)
 router=APIRouter()
 
 
@@ -26,6 +27,7 @@ def create_new_record(record:RecordRequestBody,db:Session=Depends(get_db)):
 @router.get("/record/user/{user_name}",response_model=List[Record])
 def read_records(user_name:str,db:Session=Depends(get_db)):
     records=get_records(db,user_name=user_name)
+    print(records)
     return records
 
 @router.get("/record/id/{record_id}",response_model=Record)
