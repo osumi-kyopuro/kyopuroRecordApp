@@ -9,7 +9,7 @@ app = FastAPI()
 db_config = DbConfig.get()
 
 # MySQL接続用のURLを作成します
-SQLALCHEMY_DATABASE_URL = f"mysql+mysqlconnector://{db_config.user}:{db_config.password}@{db_config.host}:{db_config.port}/{db_config.database}"
+SQLALCHEMY_DATABASE_URL = f"mysql+mysqlconnector://{db_config.user}:{db_config.password}@{db_config.host}:{db_config.port}/{db_config.database}?charset=utf8"
 
 # SQLAlchemyのエンジンを作成します
 engine = create_engine(SQLALCHEMY_DATABASE_URL)

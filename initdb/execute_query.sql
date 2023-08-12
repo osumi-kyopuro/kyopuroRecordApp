@@ -23,9 +23,10 @@ insert into user_info(user_name,user_password) values('atcoder','bbbbb');
 create table record(
     record_id int NOT NULL AUTO_INCREMENT,
     user_name varchar(200) NOT NULL,
-    question_number varchar(200),
-    question_name varchar(200),
-    code_link varchar(200),
+    category  varchar(200) NOT NULL,
+    question_number varchar(200) NOT NULL,
+    question_name varchar(200) NOT NULL,
+    code_link varchar(200) NOT NULL,
     memo varchar(200),
     ac_day varchar(200),    
     PRIMARY KEY (record_id)
@@ -35,5 +36,5 @@ create table record(
 /*select * from record;
 */
 /* 情報にデータ追加 */
-insert into record(user_name,question_number,question_name,code_link,memo,ac_day) values('osumi','ABC129C','Typical Stairs','https://atcoder.jp/contests/abc129/submissions/38884992','DP','2023/02/14');
+insert into record(user_name,category,question_number,question_name,code_link,memo,ac_day) values('osumi','動的計画法','ABC129C','Typical Stairs','https://atcoder.jp/contests/abc129/submissions/38884992','DP','2023/02/14');
 
