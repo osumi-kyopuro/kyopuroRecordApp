@@ -6,7 +6,6 @@ COPY ./requirements.txt /code/requirements.txt
 
 EXPOSE 3306
 
-RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
 RUN pip install fastapi uvicorn
 RUN pip install mysql-connector-python
 RUN pip install python-dotenv

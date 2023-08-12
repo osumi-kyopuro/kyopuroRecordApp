@@ -1,4 +1,5 @@
 from pydantic import BaseModel
+from datetime import date
 
 class RecordRequestBody(BaseModel):
     user_name:str
@@ -7,7 +8,7 @@ class RecordRequestBody(BaseModel):
     question_name:str
     code_link:str
     memo:str
-    ac_day:str
+    ac_day:date
 
 
 class Record(RecordRequestBody):
