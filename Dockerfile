@@ -13,5 +13,7 @@ RUN apt update
 RUN apt install iputils-ping net-tools -y
 RUN pip install --upgrade sqlalchemy
 
+CMD ["make", "sleep-and-migrate-up"]
+
 # backendモジュールをコンテナ内にコピー
 COPY ./backend /code/backend
