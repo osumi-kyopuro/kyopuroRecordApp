@@ -18,7 +18,7 @@ services:
       - type: bind
         source: "./my.cnf"
         target: "/etc/mysql/conf.d/my.cnf"
-      - ./initdb:/docker-entrypoint-initdb.d
+      - ./db/migrate:/docker-entrypoint-initdb.d
     healthcheck:
       test: ["CMD", "mysqladmin","ping","-h","localhost"]
       timeout: 20s

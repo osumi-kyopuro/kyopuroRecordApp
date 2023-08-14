@@ -9,7 +9,7 @@
 
 ## アーキテクチャ
 - バックエンド
-    - Python3,fastAPI
+    - Python3,FastAPI
 - フロントエンド
     - TypeScript,Vue.js
 - DB
@@ -34,6 +34,7 @@ docker-compose down
 kyopuroRecordApp
 ├── Dockerfile
 ├── LICENSE
+├── Makefile
 ├── README.md
 ├── backend
 │   ├── app
@@ -68,6 +69,10 @@ kyopuroRecordApp
 │   │       ├── record_services.py
 │   │       └── user_services.py
 │   └── test
+├── db
+│   └── migrate
+│       ├── XXXXXX_record.down.sql
+│       └── XXXXXX_record.up.sql
 ├── docker-compose.yml
 ├── document
 │   ├── aws_architecture.drawio
@@ -75,8 +80,7 @@ kyopuroRecordApp
 │   ├── screen_design_document.pdf
 │   └── screen_design_document.xlsx
 ├── frontend
-├── initdb
-│   └── execute_query.sql
+├── my.cnf
 └── requirements.txt
 ```
 # コーディング規約
