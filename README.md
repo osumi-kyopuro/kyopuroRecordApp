@@ -71,14 +71,16 @@ kyopuroRecordApp
 │   └── test
 ├── db
 │   └── migrate
-│       ├── XXXXXX_record.down.sql
-│       └── XXXXXX_record.up.sql
+│       ├── XXXXXX_user_info.down.sql
+│       └── XXXXXX_user_info.up.sql
 ├── docker-compose.yml
 ├── document
 │   ├── aws_architecture.drawio
 │   ├── aws_architecture.svg
 │   ├── screen_design_document.pdf
-│   └── screen_design_document.xlsx
+│   ├── screen_design_document.xlsx
+│   ├── table_document.pdf
+│   └── table_document.xlsx
 ├── frontend
 ├── my.cnf
 └── requirements.txt
