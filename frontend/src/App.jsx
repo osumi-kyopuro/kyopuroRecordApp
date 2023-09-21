@@ -1,10 +1,14 @@
 import './App.css';
+import {Footer} from "./components/Footer";
+import {Header} from "./components/Header";
+
 
 export const App=()=> {
   return (
-    <div>
-      kyopuroRecordApp
-    </div>
+    <>
+      <Header/>
+      <Footer/>
+    </>
   );
 }
 
