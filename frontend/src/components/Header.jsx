@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from 'react-router-dom'
 
 const headerStyle={
     backgroundColor:"#000000",
@@ -29,7 +30,10 @@ const startLists={
 };
 
 const startList={
-    width:"30%"
+    width:"30%",
+    textDecoration:"none", 
+    color:"white",
+    fontSize:"80%"
 };
 
 export const Header=()=>{
@@ -39,8 +43,8 @@ export const Header=()=>{
                 kyopuroRecordApp
             </div>
             <ul style={startLists}>
-                <li style={startList}><a style={{textDecoration:"none", color:"white",fontSize:"80%"}}href="">新規登録</a></li>
-                <li style={startList}><a style={{textDecoration:"none", color:"white",fontSize:"80%"}} href="">ログイン</a></li>
+                <Link to="/enjoy" style={startList}>新規登録</Link>
+                <Link to="/" style={startList}>ログイン</Link>
             </ul>
         </div>
     );

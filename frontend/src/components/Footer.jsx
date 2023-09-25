@@ -29,6 +29,15 @@ const accountListStyle={
     listStyle:"none"
 };
 
+const onClickLink=(id)=>{
+    const linkList=[
+        "https://atcoder.jp/users/osumi",
+        "https://github.com/osumi-kyopuro",
+        "https://twitter.com/wajiro_kyopro"
+    ];
+    return (window.open(linkList[id], '_blank'));
+}
+
 export const Footer=()=>{
     const {alt,width,height}=imgStyle;
     return (
@@ -40,9 +49,9 @@ export const Footer=()=>{
             <div style={footerListStyle}>
                 <p>運営者「WAジロー」のアカウントリンク集</p>
                 <ul style={accountListStyle}>
-                    <li><a style={{textDecoration:"none"}} href="https://atcoder.jp/users/osumi" target="_blank">AtCoder</a></li>
-                    <li><a style={{textDecoration:"none"}} href="https://github.com/osumi-kyopuro" target="_blank">GitHub</a></li>
-                    <li><a style={{textDecoration:"none"}} href="https://twitter.com/wajiro_kyopro" target="_blank">X</a></li>
+                    <li style={{cursor:"pointer"}} onClick={()=>{onClickLink(0)}}>AtCoder</li>
+                    <li style={{cursor:"pointer"}} onClick={()=>{onClickLink(1)}}>GitHub</li>
+                    <li style={{cursor:"pointer"}} onClick={()=>{onClickLink(2)}}>X</li>
                 </ul>
             </div>
         </div>
