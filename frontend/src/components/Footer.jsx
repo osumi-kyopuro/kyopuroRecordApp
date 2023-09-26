@@ -47,7 +47,7 @@ export const Footer=()=>{
                 <img src={icon} alt={alt} width={width} height={height}/>    
             </div>
             <div style={footerListStyle}>
-                <p>運営者「WAジロー」のアカウントリンク集</p>
+                <p>開発者「WAジロー」のアカウントリンク集</p>
                 <ul style={accountListStyle}>
                     <li style={{cursor:"pointer"}} onClick={()=>{onClickLink(0)}}>AtCoder</li>
                     <li style={{cursor:"pointer"}} onClick={()=>{onClickLink(1)}}>GitHub</li>

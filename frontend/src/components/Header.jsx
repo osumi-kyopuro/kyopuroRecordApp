@@ -19,7 +19,8 @@ const headerTitleStyle={
     padding:"1%",
     top: "0",
     left: "0",
-    width:"80%"
+    width:"80%",
+    fontWeight:"bold"
 };
 
 
@@ -33,7 +34,8 @@ const startList={
     width:"30%",
     textDecoration:"none", 
     color:"white",
-    fontSize:"80%"
+    fontSize:"80%",
+    padding:"0 5%"
 };
 
 export const Header=()=>{
@@ -43,8 +45,8 @@ export const Header=()=>{
                 kyopuroRecordApp
             </div>
             <ul style={startLists}>
-                <Link to="/enjoy" style={startList}>新規登録</Link>
-                <Link to="/" style={startList}>ログイン</Link>
+                <Link to="/signUp" style={startList}>新規登録</Link>
+                <Link to="/login" style={startList}>ログイン</Link>
             </ul>
         </div>
     );

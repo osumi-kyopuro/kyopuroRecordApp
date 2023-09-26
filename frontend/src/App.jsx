@@ -3,7 +3,7 @@ import { Routes,Route } from 'react-router-dom';
 import {Footer} from "./components/Footer";
 import {Header} from "./components/Header";
 import {Main} from "./components/Main";
-import {Check} from "./components/Check";
+import {AccountAuthentication} from "./components/AccountAuthentication";
 
 export const App=()=> {
   return (
@@ -11,7 +11,8 @@ export const App=()=> {
       <Header/>
       <Routes>
         <Route path="/" element={<Main/>} />
-        <Route path="/enjoy" element={<Check/>} />
+        <Route path="/signUp" element={<AccountAuthentication pageName={"signUp"}/>} />
+        <Route path="/login" element={<AccountAuthentication pageName={"login"}/>} />
       </Routes>
       <Footer/>
     </>
