@@ -1,0 +1,425 @@
+openapi: "3.0.3"
+
+info:
+  title: "API-Document"
+  description: "APIの設計書です。"
+  version: "1.0.0"
+
+servers:
+  - url: "http://0.0.0.0:80"
+    description: "ローカル環境"
+
+
+paths:
+  /api/userInfo/:
+    post:
+      tags:
+        - userInfoAPI
+      summary: Create New User
+      operationId: create_new_user_api_userInfo__post
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserBase'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserInfo'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    get:
+      tags:
+        - userInfoAPI
+      summary: Read Users
+      operationId: read_users_api_userInfo__get
+      parameters:
+        - name: skip
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 0
+            title: Skip
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 10
+            title: Limit
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserInfo'
+                title: Response Read Users Api Userinfo  Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/userInfo/user/{user_name}:
+    get:
+      tags:
+        - userInfoAPI
+      summary: Read User
+      operationId: read_user_api_userInfo_user__user_name__get
+      parameters:
+        - name: user_name
+          in: path
+          required: true
+          schema:
+            type: string
+            title: User Name
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserInfo'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    put:
+      tags:
+        - userInfoAPI
+      summary: Update Existing User
+      operationId: update_existing_user_api_userInfo_user__user_name__put
+      parameters:
+        - name: user_name
+          in: path
+          required: true
+          schema:
+            type: string
+            title: User Name
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserBase'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserInfo'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+        - userInfoAPI
+      summary: Delete Existing User
+      operationId: delete_existing_user_api_userInfo_user__user_name__delete
+      parameters:
+        - name: user_name
+          in: path
+          required: true
+          schema:
+            type: string
+            title: User Name
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/record/:
+    post:
+      tags:
+        - recordAPI
+      summary: Create New Record
+      operationId: create_new_record_api_record__post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RecordRequestBody'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Record'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/record/user/{user_name}:
+    get:
+      tags:
+        - recordAPI
+      summary: Read Records
+      operationId: read_records_api_record_user__user_name__get
+      parameters:
+        - name: user_name
+          in: path
+          required: true
+          schema:
+            type: string
+            title: User Name
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Record'
+                title: Response Read Records Api Record User  User Name  Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/record/id/{record_id}:
+    get:
+      tags:
+        - recordAPI
+      summary: Read Record
+      operationId: read_record_api_record_id__record_id__get
+      parameters:
+        - name: record_id
+          in: path
+          required: true
+          schema:
+            type: integer
+            title: Record Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Record'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    put:
+      tags:
+        - recordAPI
+      summary: Update Existing Record
+      operationId: update_existing_record_api_record_id__record_id__put
+      parameters:
+        - name: record_id
+          in: path
+          required: true
+          schema:
+            type: integer
+            title: Record Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RecordRequestBody'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Record'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+        - recordAPI
+      summary: Delete Existing Record
+      operationId: delete_existing_record_api_record_id__record_id__delete
+      parameters:
+        - name: record_id
+          in: path
+          required: true
+          schema:
+            type: integer
+            title: Record Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    Record:
+      properties:
+        user_name:
+          type: string
+          title: User Name
+        category:
+          type: string
+          title: Category
+        question_number:
+          type: string
+          title: Question Number
+        question_name:
+          type: string
+          title: Question Name
+        code_link:
+          type: string
+          title: Code Link
+        memo:
+          type: string
+          title: Memo
+        ac_day:
+          type: string
+          format: date
+          title: Ac Day
+        record_id:
+          type: integer
+          title: Record Id
+      type: object
+      required:
+        - user_name
+        - category
+        - question_number
+        - question_name
+        - code_link
+        - memo
+        - ac_day
+        - record_id
+      title: Record
+    RecordRequestBody:
+      properties:
+        user_name:
+          type: string
+          title: User Name
+        category:
+          type: string
+          title: Category
+        question_number:
+          type: string
+          title: Question Number
+        question_name:
+          type: string
+          title: Question Name
+        code_link:
+          type: string
+          title: Code Link
+        memo:
+          type: string
+          title: Memo
+        ac_day:
+          type: string
+          format: date
+          title: Ac Day
+      type: object
+      required:
+        - user_name
+        - category
+        - question_number
+        - question_name
+        - code_link
+        - memo
+        - ac_day
+      title: RecordRequestBody
+    UserBase:
+      properties:
+        user_name:
+          type: string
+          title: User Name
+        user_password:
+          type: string
+          title: User Password
+      type: object
+      required:
+        - user_name
+        - user_password
+      title: UserBase
+    UserInfo:
+      properties:
+        user_name:
+          type: string
+          title: User Name
+        user_password:
+          type: string
+          title: User Password
+        user_id:
+          type: integer
+          title: User Id
+      type: object
+      required:
+        - user_name
+        - user_password
+        - user_id
+      title: UserInfo
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+              - type: string
+              - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+        - loc
+        - msg
+        - type
+      title: ValidationError
+
