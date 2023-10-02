@@ -20,9 +20,6 @@ const message={
     transform: "translate(-50%,-50%)"
 }
 
-
-
-
 export const Main=()=>{
     const {alt,width,height}=imgStyle;
     return (
