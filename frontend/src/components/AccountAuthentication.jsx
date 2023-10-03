@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState,useEffect } from "react";
+import axios from "axios";
 import { Link } from 'react-router-dom'
 
 const accountAuthenticationStyle={
@@ -36,6 +37,17 @@ const itemNameStyle={
     fontWeight:"bold"
 }
 
+const getLoginData=()=>{
+    const apiUrl="http://0.0.0.0/api/userInfo/";
+    axios.get(apiUrl,{withCredentials: true})
+        .then(function (response) {
+            console.log(response.data[0]);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+}
+
 
 
 export const AccountAuthentication=(props)=>{
@@ -51,7 +63,7 @@ export const AccountAuthentication=(props)=>{
                 <input type="password" id="password" placeholder="password"/>
             </div>
             {
-                pageName==="signUp"&&<Link to="/"><button style={signUpButtonStyle}>新規登録</button></Link>
+                pageName==="signUp"&&<Link to="/"><button style={signUpButtonStyle} onClick={()=>{getLoginData()}}>新規登録</button></Link>
             }
             {
                 pageName==="login"&&<Link to="/record/"><button style={loginButtonStyle}>ログイン</button></Link>
