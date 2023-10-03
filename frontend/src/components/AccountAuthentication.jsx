@@ -48,25 +48,45 @@ const getLoginData=()=>{
         });
 }
 
+const loginAuthentication=(userName,password)=>{
+    const apiUrl="http://0.0.0.0/api/userInfo/user/"+userName;
+    axios.get(apiUrl,{withCredentials: true})
+        .then(function (response) {
+            console.log(response.data);
+            if(response.data.user_name===userName&&response.data.user_password===password){
+                console.log("認証成功！");
+            }
+            else{
+                console.log("認証失敗");
+            }
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+    
+}
+
 
 
 export const AccountAuthentication=(props)=>{
+    const [userName,setUserName]=useState("");
+    const [password,setPassword]=useState("");
     const { pageName } = props;
     return (
         <div style={accountAuthenticationStyle}>
             <div style={inputItem}>
                 <label htmlFor="userName" style={itemNameStyle}>ユーザー名</label>
-                <input type="text" id="userName" placeholder="userName"/>
+                <input type="text" placeholder="userName" value={userName} onChange={(event) => setUserName(event.target.value)}/>
             </div>
             <div style={inputItem}>
                 <label htmlFor="password" style={itemNameStyle}>パスワード</label>
-                <input type="password" id="password" placeholder="password"/>
+                <input type="password" placeholder="password" value={password} onChange={(event) => setPassword(event.target.value)}/>
             </div>
             {
                 pageName==="signUp"&&<Link to="/"><button style={signUpButtonStyle} onClick={()=>{getLoginData()}}>新規登録</button></Link>
             }
             {
-                pageName==="login"&&<Link to="/record/"><button style={loginButtonStyle}>ログイン</button></Link>
+                pageName==="login"&&<Link to="/record/"><button style={loginButtonStyle} onClick={()=>{loginAuthentication(userName,password)}}>ログイン</button></Link>
             }
         </div>
     );
