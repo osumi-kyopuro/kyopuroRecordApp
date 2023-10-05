@@ -9,16 +9,19 @@ import {AccountAuthentication} from "./components/AccountAuthentication";
 
 
 export const App=()=> {
-    
+    const [loginSuccess,setLoginSuccess]=useState(false);
 
+    const loginSuccessFunction=()=>{
+        setLoginSuccess(true);
+    }
 
     return (
         <>
-        <Header/>
+        <Header loginSuccess={loginSuccess}/>
         <Routes>
             <Route path="/" element={<Main/>} />
             <Route path="/signUp" element={<AccountAuthentication pageName={"signUp"}/>} />
-            <Route path="/login" element={<AccountAuthentication pageName={"login"}/>} />
+            <Route path="/login" element={<AccountAuthentication pageName={"login"} loginSuccessFunction={loginSuccessFunction}/>} />
         </Routes>
         <Footer/>
         </>

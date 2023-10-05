@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from 'react-router-dom'
 
 const headerStyle={
@@ -38,15 +38,21 @@ const startList={
     padding:"0 5%"
 };
 
-export const Header=()=>{
+export const Header=(props)=>{
+
+    const {loginSuccess}=props;
+    console.log(loginSuccess);
     return (
         <div style={headerStyle}>
             <div style={headerTitleStyle}>
                 kyopuroRecordApp
             </div>
             <ul style={startLists}>
-                <Link to="/signUp" style={startList}>新規登録</Link>
-                <Link to="/login" style={startList}>ログイン</Link>
+                {loginSuccess===false&&
+                    <><Link to="/signUp" style={startList}>新規登録</Link>
+                    <Link to="/login" style={startList}>ログイン</Link></>
+                }
+                {loginSuccess===true&&<><Link to="/" style={startList}>ログインした</Link></>}
             </ul>
         </div>
     );
