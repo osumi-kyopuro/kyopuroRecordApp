@@ -1,6 +1,5 @@
 import './App.css';
 import React, { useState,useEffect } from "react";
-import axios from "axios";
 import { Routes,Route } from 'react-router-dom';
 import {Footer} from "./components/Footer";
 import {Header} from "./components/Header";
@@ -9,19 +8,16 @@ import {AccountAuthentication} from "./components/AccountAuthentication";
 
 
 export const App=()=> {
+    const [userName,setUserName]=useState("");
     const [loginSuccess,setLoginSuccess]=useState(false);
-
-    const loginSuccessFunction=()=>{
-        setLoginSuccess(true);
-    }
 
     return (
         <>
-        <Header loginSuccess={loginSuccess}/>
+        <Header userName={userName} loginSuccess={loginSuccess}/>
         <Routes>
             <Route path="/" element={<Main/>} />
-            <Route path="/signUp" element={<AccountAuthentication pageName={"signUp"}/>} />
-            <Route path="/login" element={<AccountAuthentication pageName={"login"} loginSuccessFunction={loginSuccessFunction}/>} />
+            <Route path="/signUp" element={<AccountAuthentication pageName={"signUp"} userName={userName} setUserName={setUserName} loginSuccess={loginSuccess} setLoginSuccess={setLoginSuccess}/>} />
+            <Route path="/login" element={<AccountAuthentication pageName={"login"} userName={userName} setUserName={setUserName} loginSuccess={loginSuccess} setLoginSuccess={setLoginSuccess}/>} />
         </Routes>
         <Footer/>
         </>

@@ -1,4 +1,5 @@
 import React, { useState,useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 
 const accountAuthenticationStyle={
@@ -37,42 +38,58 @@ const itemNameStyle={
 }
 
 export const AccountAuthentication=(props)=>{
-
-    const [userName,setUserName]=useState("");
     const [password,setPassword]=useState("");
+    const [password2,setPassword2]=useState("");
     const [loginFailure,setLoginFailure]=useState(false);
-    const [loginSuccess,setLoginSuccess]=useState(false);
-    const { pageName,loginSuccessFunction} = props;
+    const [usedUserName,setUsedUserName]=useState(false);
+    const [notMatchPassword,setNotMatchPassword]=useState(false);
+    const navigate = useNavigate();
+    const { pageName,userName,setUserName,loginSuccess,setLoginSuccess} = props;
 
-    const createAccount=(userName,password)=>{
-        const apiUrl="http://0.0.0.0/api/userInfo/";
-        const accountData={'user_name':userName,'user_password':password};
-        axios.post(apiUrl,accountData)
+
+    const createAccount=(userName,password,password2)=>{
+        const apiUrl="http://0.0.0.0/api/userInfo/user/"+userName;
+        axios.get(apiUrl)
             .then(function (response) {
-                window.location.href="/";
-                setUserName("");
-                setPassword("");
+                if(response.data.user_name===userName){
+                    setUsedUserName(true);
+                }
             })
             .catch(function (error) {
+                setUsedUserName(false);
                 console.log(error);
             });
+        if(!usedUserName&&password===password2){
+            const apiUrl="http://0.0.0.0/api/userInfo/";
+            const accountData={'user_name':userName,'user_password':password};
+            axios.post(apiUrl,accountData)
+                .then(function () {
+                    navigate('/');
+                    setUserName("");
+                    setPassword("");
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        }
+        else if(!usedUserName){
+            setNotMatchPassword(true);
+        }
     }
     
 
 
 
 
-    const loginAuthentication=(userName,password,props)=>{
+    const loginAuthentication=(userName,password)=>{
         const apiUrl="http://0.0.0.0/api/userInfo/user/"+userName;
         axios.get(apiUrl)
             .then(function (response) {
-                if(response.data.user_name===userName&&response.data.user_password===password){
+                if(response.data.user_password===password){
                     console.log("認証成功！");
-                    window.location.href="/record";
-                    setUserName("");
-                    setPassword("");
-                    props.loginSuccessFunction();
-                    //loginSuccessFunction();
+                    navigate('/record');
+                    setLoginSuccess(true);
+                    setUserName(userName);
                 }
                 else{
                     console.log("認証失敗");
@@ -80,6 +97,7 @@ export const AccountAuthentication=(props)=>{
                 }
             })
             .catch(function (error) {
+                setLoginFailure(true);
                 console.log(error);
             });
     }
@@ -90,22 +108,32 @@ export const AccountAuthentication=(props)=>{
         <div style={accountAuthenticationStyle}>
             <div style={inputItem}>
                 <label htmlFor="userName" style={itemNameStyle}>ユーザー名</label>
-                <input type="text" placeholder="userName" value={userName} onChange={(event) => setUserName(event.target.value)}/>
+                <input type="text" placeholder="userName" value={userName} maxLength="20" required onChange={(event) => setUserName(event.target.value)}/>
             </div>
             <div style={inputItem}>
                 <label htmlFor="password" style={itemNameStyle}>パスワード</label>
-                <input type="password" placeholder="password" value={password} onChange={(event) => setPassword(event.target.value)}/>
+                <input type="password" placeholder="password" value={password} minLength="3" maxLength="30" required onChange={(event) => setPassword(event.target.value)}/>
             </div>
-            {loginSuccess===true&&<p style={{color:"red"}}>{userName}</p>}
+            {loginSuccess&&<p style={{color:"red"}}>{userName}</p>}
             
-            {loginFailure===true&&<p style={{color:"red"}}>ユーザー名かパスワードどちらか間違えています。</p>}
             {
-                pageName==="signUp"&&<button style={signUpButtonStyle} onClick={()=>{createAccount(userName,password)}}>新規登録</button>
+                pageName==="signUp"&&
+                <>
+                    <div style={inputItem}>
+                        <label htmlFor="password2" style={itemNameStyle}>パスワード確認</label>
+                        <input type="password" placeholder="password2" value={password2} minLength="3" maxLength="30" required onChange={(event) => setPassword2(event.target.value)}/>
+                    </div>
+                    <button style={signUpButtonStyle} onClick={()=>{createAccount(userName,password,password2)}}>新規登録</button>
+                </>
+                
             }
             {
-                pageName==="login"&&<button style={loginButtonStyle} onClick={()=>{loginAuthentication(userName,password,props)}}>ログイン</button>
+                pageName==="login"&&<button style={loginButtonStyle} onClick={()=>{loginAuthentication(userName,password)}}>ログイン</button>
             }
-            
+
+            {loginFailure&&<p style={{color:"red"}}>ユーザー名かパスワードどちらか間違えています。</p>}
+            {usedUserName&&<p style={{color:"red"}}>ユーザー名がすでに使われています。</p>}
+            {notMatchPassword&&<p style={{color:"red"}}>パスワードが一致していません。</p>}
         </div>
     );
 };

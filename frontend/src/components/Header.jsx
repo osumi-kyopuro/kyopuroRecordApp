@@ -38,21 +38,39 @@ const startList={
     padding:"0 5%"
 };
 
+const userNameText={
+    width:"30%",
+    textDecoration:"none", 
+    color:"white",
+    fontSize:"80%",
+    padding:"0 5%",
+    fontWeight:"bold"
+};
+
 export const Header=(props)=>{
 
-    const {loginSuccess}=props;
-    console.log(loginSuccess);
+    const {userName,loginSuccess}=props;
+    console.log(userName);
     return (
         <div style={headerStyle}>
             <div style={headerTitleStyle}>
                 kyopuroRecordApp
             </div>
             <ul style={startLists}>
-                {loginSuccess===false&&
-                    <><Link to="/signUp" style={startList}>新規登録</Link>
-                    <Link to="/login" style={startList}>ログイン</Link></>
+                {
+                    !loginSuccess&&
+                    <>
+                        <Link to="/signUp" style={startList}>新規登録</Link>
+                        <Link to="/login" style={startList}>ログイン</Link>
+                    </>
                 }
-                {loginSuccess===true&&<><Link to="/" style={startList}>ログインした</Link></>}
+                {   
+                    loginSuccess&&
+                    <>
+                        <Link to="/record" style={userNameText}>{userName}</Link>
+                        <a href="/" style={startList}>ログアウト</a>
+                    </>
+                }
             </ul>
         </div>
     );
