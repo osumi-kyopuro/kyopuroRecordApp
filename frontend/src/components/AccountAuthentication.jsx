@@ -1,5 +1,6 @@
-import React, { useState,useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
+import { useForm } from "react-hook-form";
 import axios from "axios";
 
 const accountAuthenticationStyle={
@@ -38,14 +39,13 @@ const itemNameStyle={
 }
 
 export const AccountAuthentication=(props)=>{
-    const [password,setPassword]=useState("");
-    const [password2,setPassword2]=useState("");
+    const [setPassword]=useState("");
     const [loginFailure,setLoginFailure]=useState(false);
     const [usedUserName,setUsedUserName]=useState(false);
     const [notMatchPassword,setNotMatchPassword]=useState(false);
     const navigate = useNavigate();
-    const { pageName,userName,setUserName,loginSuccess,setLoginSuccess} = props;
-
+    const { pageName,setUserName,setLoginSuccess} = props;
+    const {register,handleSubmit,formState:{errors}}=useForm({});
 
     const createAccount=(userName,password,password2)=>{
         const apiUrl="http://0.0.0.0/api/userInfo/user/"+userName;
@@ -78,9 +78,6 @@ export const AccountAuthentication=(props)=>{
     }
     
 
-
-
-
     const loginAuthentication=(userName,password)=>{
         const apiUrl="http://0.0.0.0/api/userInfo/user/"+userName;
         axios.get(apiUrl)
@@ -104,36 +101,39 @@ export const AccountAuthentication=(props)=>{
 
 
     return (
-        
-        <div style={accountAuthenticationStyle}>
-            <div style={inputItem}>
-                <label htmlFor="userName" style={itemNameStyle}>ユーザー名</label>
-                <input type="text" placeholder="userName" value={userName} maxLength="20" required onChange={(event) => setUserName(event.target.value)}/>
-            </div>
-            <div style={inputItem}>
-                <label htmlFor="password" style={itemNameStyle}>パスワード</label>
-                <input type="password" placeholder="password" value={password} minLength="3" maxLength="30" required onChange={(event) => setPassword(event.target.value)}/>
-            </div>
-            {loginSuccess&&<p style={{color:"red"}}>{userName}</p>}
-            
-            {
-                pageName==="signUp"&&
-                <>
+        <>
+            <form onSubmit={handleSubmit((data)=>{
+                pageName==="signUp"?createAccount(data.userName,data.password,data.password2):loginAuthentication(data.userName,data.password);
+            })}>
+                <div style={accountAuthenticationStyle}>
                     <div style={inputItem}>
-                        <label htmlFor="password2" style={itemNameStyle}>パスワード確認</label>
-                        <input type="password" placeholder="password2" value={password2} minLength="3" maxLength="30" required onChange={(event) => setPassword2(event.target.value)}/>
+                        <label style={itemNameStyle}>ユーザー名</label>
+                        <input {...register("userName",{minLength:3,maxLength:15})} placeholder="userName" type="text"/>
                     </div>
-                    <button style={signUpButtonStyle} onClick={()=>{createAccount(userName,password,password2)}}>新規登録</button>
-                </>
-                
-            }
-            {
-                pageName==="login"&&<button style={loginButtonStyle} onClick={()=>{loginAuthentication(userName,password)}}>ログイン</button>
-            }
-
-            {loginFailure&&<p style={{color:"red"}}>ユーザー名かパスワードどちらか間違えています。</p>}
-            {usedUserName&&<p style={{color:"red"}}>ユーザー名がすでに使われています。</p>}
-            {notMatchPassword&&<p style={{color:"red"}}>パスワードが一致していません。</p>}
-        </div>
+                    <div style={inputItem}>
+                        <label style={itemNameStyle}>パスワード</label>
+                        <input {...register("password",{minLength:3,maxLength:30})} placeholder="password" type="password"/>
+                    </div>
+                    {
+                        pageName==="signUp"&&
+                        <>
+                            <div style={inputItem}>
+                                <label style={itemNameStyle}>パスワード(確認)</label>
+                                <input {...register("password2",{maxLength:3,maxLength:30})} placeholder="password2" type="password"/>
+                            </div>
+                            <button style={signUpButtonStyle}>新規登録</button>
+                        </>
+                    }
+                    {
+                        pageName==="login"&&<button style={loginButtonStyle}>ログイン</button>
+                    }
+                    {errors.userName && <p style={{color:"red"}}>ユーザー名は3文字以上15文字以内で入力してください。</p>}
+                    {errors.password && <p style={{color:"red"}}>パスワードは3文字以上30文字以内で入力してください。</p>}
+                    {loginFailure&&<p style={{color:"red"}}>ユーザー名かパスワードどちらか間違えています。</p>}
+                    {usedUserName&&<p style={{color:"red"}}>ユーザー名がすでに使われています。</p>}
+                    {notMatchPassword&&<p style={{color:"red"}}>パスワードが一致していません。</p>}
+                </div>
+            </form> 
+        </>
     );
 };

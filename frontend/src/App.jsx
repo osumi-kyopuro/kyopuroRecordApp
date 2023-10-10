@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useState,useEffect } from "react";
+import React, { useState } from "react";
 import { Routes,Route } from 'react-router-dom';
 import {Footer} from "./components/Footer";
 import {Header} from "./components/Header";
@@ -13,13 +13,13 @@ export const App=()=> {
 
     return (
         <>
-        <Header userName={userName} loginSuccess={loginSuccess}/>
-        <Routes>
-            <Route path="/" element={<Main/>} />
-            <Route path="/signUp" element={<AccountAuthentication pageName={"signUp"} userName={userName} setUserName={setUserName} loginSuccess={loginSuccess} setLoginSuccess={setLoginSuccess}/>} />
-            <Route path="/login" element={<AccountAuthentication pageName={"login"} userName={userName} setUserName={setUserName} loginSuccess={loginSuccess} setLoginSuccess={setLoginSuccess}/>} />
-        </Routes>
-        <Footer/>
+            <Header userName={userName} loginSuccess={loginSuccess}/>
+            <Routes>
+                <Route path="/" element={<Main/>} />
+                <Route path="/signUp" element={<AccountAuthentication pageName={"signUp"} setUserName={setUserName} setLoginSuccess={setLoginSuccess}/>} />
+                <Route path="/login" element={<AccountAuthentication pageName={"login"} setUserName={setUserName} setLoginSuccess={setLoginSuccess}/>} />
+            </Routes>
+            <Footer/>
         </>
     );
 }
