@@ -79,21 +79,17 @@ export const AccountAuthentication=(props)=>{
     
 
     const loginAuthentication=(userName,password)=>{
-        const apiUrl="http://0.0.0.0/api/userInfo/user/"+userName;
+        const apiUrl="http://0.0.0.0/api/userInfo/authenticate/?user_name="+userName+"&user_password="+password;
         axios.get(apiUrl)
             .then(function (response) {
-                if(response.data.user_password===password){
-                    console.log("認証成功！");
-                    navigate('/record');
-                    setLoginSuccess(true);
-                    setUserName(userName);
-                }
-                else{
-                    console.log("認証失敗");
-                    setLoginFailure(true);
-                }
+                console.log(response.data);
+                console.log("認証成功！");
+                navigate('/record');
+                setLoginSuccess(true);
+                setUserName(userName);
             })
             .catch(function (error) {
+                console.log("認証失敗");
                 setLoginFailure(true);
                 console.log(error);
             });

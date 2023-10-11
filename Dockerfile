@@ -12,6 +12,7 @@ RUN pip install python-dotenv
 RUN apt update
 RUN apt install iputils-ping net-tools -y
 RUN pip install --upgrade sqlalchemy
+RUN pip install sqlalchemy passlib bcrypt
 
 CMD ["make", "sleep-and-migrate-up"]
 
