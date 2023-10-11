@@ -2,11 +2,18 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from typing import List
 from ..schemas.user import UserInfo,UserBase
-from ..crud.user import get_user, get_users, create_user, update_user, delete_user
+from ..crud.user import get_user, get_users, create_user, update_user, delete_user,authenticate_password
 from ..databases.database import SessionLocal, engine,Base
+from passlib.context import CryptContext
+from fastapi.responses import JSONResponse
+from fastapi.security import (
+        HTTPBasic,
+        HTTPBasicCredentials)
 
+pwd_cxt = CryptContext(schemes=['bcrypt'], deprecated='auto')
 Base.metadata.create_all(bind=engine)
 router = APIRouter()
+security = HTTPBasic()
 
 # Dependency
 def get_db():
@@ -46,3 +53,14 @@ def delete_existing_user(user_name: str, db: Session = Depends(get_db)):
     if db_user is None:
         raise HTTPException(status_code=404, detail="User not found")
     return delete_user(db, user_name=db_user.user_name)
+
+@router.get("/userInfo/authenticate/",response_model=UserInfo)
+def authenticate_user(user_name: str,user_password:str,db: Session = Depends(get_db)):
+    db_bool = authenticate_password(db, user_name=user_name,user_password=user_password)
+    if db_bool :
+        return get_user(db, user_name=user_name)
+    else:
+        raise HTTPException(
+                status_code=401,
+                detail="Incorrect userName or password",
+                headers={"WWW-Authenticate": "Basci"})
