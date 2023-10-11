@@ -15,7 +15,6 @@ def get_user(db: Session, user_name: str):
 def create_user(db: Session, user: UserBase):
     db_user = db.query(UserInfo).filter(UserInfo.user_name == user.user_name).first()
     if not db_user:
-        ##db_user = UserInfo(**user.dict())
         db_user = UserInfo(
             user_name=user.user_name,
             user_password=get_password_hash(user.user_password)

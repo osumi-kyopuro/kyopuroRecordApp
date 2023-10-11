@@ -5,15 +5,10 @@ from ..schemas.user import UserInfo,UserBase
 from ..crud.user import get_user, get_users, create_user, update_user, delete_user,authenticate_password
 from ..databases.database import SessionLocal, engine,Base
 from passlib.context import CryptContext
-from fastapi.responses import JSONResponse
-from fastapi.security import (
-        HTTPBasic,
-        HTTPBasicCredentials)
 
 pwd_cxt = CryptContext(schemes=['bcrypt'], deprecated='auto')
 Base.metadata.create_all(bind=engine)
 router = APIRouter()
-security = HTTPBasic()
 
 # Dependency
 def get_db():

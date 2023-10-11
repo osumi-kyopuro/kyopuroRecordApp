@@ -50,10 +50,8 @@ export const AccountAuthentication=(props)=>{
     const createAccount=(userName,password,password2)=>{
         const apiUrl="http://0.0.0.0/api/userInfo/user/"+userName;
         axios.get(apiUrl)
-            .then(function (response) {
-                if(response.data.user_name===userName){
-                    setUsedUserName(true);
-                }
+            .then(function () {
+                setUsedUserName(true);
             })
             .catch(function (error) {
                 setUsedUserName(false);
@@ -81,15 +79,12 @@ export const AccountAuthentication=(props)=>{
     const loginAuthentication=(userName,password)=>{
         const apiUrl="http://0.0.0.0/api/userInfo/authenticate/?user_name="+userName+"&user_password="+password;
         axios.get(apiUrl)
-            .then(function (response) {
-                console.log(response.data);
-                console.log("認証成功！");
+            .then(function () {
                 navigate('/record');
                 setLoginSuccess(true);
                 setUserName(userName);
             })
             .catch(function (error) {
-                console.log("認証失敗");
                 setLoginFailure(true);
                 console.log(error);
             });
@@ -125,9 +120,9 @@ export const AccountAuthentication=(props)=>{
                     }
                     {errors.userName && <p style={{color:"red"}}>ユーザー名は3文字以上15文字以内で入力してください。</p>}
                     {errors.password && <p style={{color:"red"}}>パスワードは3文字以上30文字以内で入力してください。</p>}
-                    {loginFailure&&<p style={{color:"red"}}>ユーザー名かパスワードどちらか間違えています。</p>}
-                    {usedUserName&&<p style={{color:"red"}}>ユーザー名がすでに使われています。</p>}
-                    {notMatchPassword&&<p style={{color:"red"}}>パスワードが一致していません。</p>}
+                    {loginFailure && <p style={{color:"red"}}>ユーザー名かパスワードどちらか間違えています。</p>}
+                    {usedUserName && <p style={{color:"red"}}>ユーザー名がすでに使われています。</p>}
+                    {notMatchPassword && <p style={{color:"red"}}>パスワードが一致していません。</p>}
                 </div>
             </form> 
         </>

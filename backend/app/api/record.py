@@ -4,7 +4,6 @@ from typing import List
 from ..schemas.record import Record,RecordRequestBody
 from ..crud.record import get_records,get_record,create_record,update_record,delete_record
 from ..databases.database import SessionLocal,engine,Base
-from fastapi.responses import JSONResponse
 
 Base.metadata.create_all(bind=engine,)
 router=APIRouter()
