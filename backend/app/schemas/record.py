@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 from datetime import date
+from typing import Optional
 
 class RecordRequestBody(BaseModel):
     user_name:str
@@ -7,8 +8,8 @@ class RecordRequestBody(BaseModel):
     question_number:str
     question_name:str
     code_link:str
-    memo:str
-    ac_day:date
+    memo: str
+    ac_day: Optional[date]=None
 
 
 class Record(RecordRequestBody):
