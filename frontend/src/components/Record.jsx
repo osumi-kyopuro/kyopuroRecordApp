@@ -1,5 +1,5 @@
 import React, { useState ,useEffect} from "react";
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 
 const box={
@@ -8,20 +8,55 @@ const box={
 };
 
 
-
 export const Record=(props)=>{
-    const { pageName,userName,setUserName,setLoginSuccess} = props;
+    const { userName,setSaveRecord} = props;
     const [record,setRecord]=useState([]);
+    const navigate = useNavigate();
     useEffect(() => {
         const apiUrl='http://0.0.0.0/api/record/user/'+userName;
         axios.get(apiUrl)
         .then(res => setRecord(res.data));
-      },[]);
+    },[]);
+
+    const initRecord=()=>{
+        setSaveRecord({});
+        navigate('/createRecord');
+    }
+
+
+    const editRecord=(id)=>{
+        const apiUrl="http://0.0.0.0/api/record/id/"+id;
+        console.log(id);
+        axios.get(apiUrl)
+            .then(function (res) {
+                setSaveRecord(res.data);
+                console.log(res.data);
+                navigate('/editRecord');
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+
+    const deleteRecord=(id)=>{
+        const apiUrl="http://0.0.0.0/api/record/id/"+id;
+        console.log(id);
+        axios.delete(apiUrl)
+            .then(function (res) {
+                console.log(res.data);
+                const apiUrl='http://0.0.0.0/api/record/user/'+userName;
+                axios.get(apiUrl)
+                    .then(res => setRecord(res.data));
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
 
     return (
         <div style={box}>
             <h1>精進記録</h1>
-            <Link to="/createRecord">新規登録</Link>
+            <button onClick={()=>{initRecord()}}>新規登録</button>
                     
             <table border="2">
                 <tr>
@@ -44,8 +79,8 @@ export const Record=(props)=>{
                                 <th>{item.code_link}</th>
                                 <th>{item.memo}</th>
                                 <th>{item.ac_day}</th>
-                                <th>編集リンク</th>
-                                <th>削除リンク</th>
+                                <th><button onClick={()=>{editRecord(item.record_id)}}>編集リンク</button></th>
+                                <th><button onClick={()=>{deleteRecord(item.record_id)}}>削除リンク</button></th>
                             </tr>
                         )
                     })

@@ -24,7 +24,7 @@ const signUpButtonStyle={
     fontWeight:"bold"
 }
 
-const loginButtonStyle={
+const editButtonStyle={
     backgroundColor:"blue",
     cursor:"pointer",
     color:"white",
@@ -55,12 +55,8 @@ const noRequireStyle={
 }
 
 export const RecordCreation=(props)=>{
-    const [setPassword]=useState("");
-    const [loginFailure,setLoginFailure]=useState(false);
-    const [usedUserName,setUsedUserName]=useState(false);
-    const [notMatchPassword,setNotMatchPassword]=useState(false);
     const navigate = useNavigate();
-    const { pageName,userName,setUserName,setLoginSuccess} = props;
+    const { pageName,userName,saveRecord} = props;
     const {register,handleSubmit,formState:{errors}}=useForm({});
 
     const createRecord=(data)=>{
@@ -73,7 +69,7 @@ export const RecordCreation=(props)=>{
             'question_name':data.questionName,
             'code_link':data.codeLink,
             'memo':data.memo,
-            'ac_day':(data.acDay==""?null:data.acDay)
+            'ac_day':(data.acDay===""?null:data.acDay)
         };
         axios.post(apiUrl,accountData)
             .then(function () {
@@ -87,16 +83,23 @@ export const RecordCreation=(props)=>{
     }
     
 
-    const editRecord=(userName,password)=>{
-        const apiUrl="http://0.0.0.0/api/userInfo/authenticate/?user_name="+userName+"&user_password="+password;
-        axios.get(apiUrl)
+    const editRecord=(data)=>{
+        const id=saveRecord.record_id;
+        const apiUrl="http://0.0.0.0/api/record/id/"+id;
+        const accountData={
+            'user_name':data.userName,
+            'category':data.category,
+            'question_number':data.questionNumber,
+            'question_name':data.questionName,
+            'code_link':data.codeLink,
+            'memo':data.memo,
+            'ac_day':(data.acDay===""?null:data.acDay)
+        };
+        axios.put(apiUrl,accountData)
             .then(function () {
                 navigate('/record');
-                setLoginSuccess(true);
-                setUserName(userName);
             })
             .catch(function (error) {
-                setLoginFailure(true);
                 console.log(error);
             });
     }
@@ -105,7 +108,7 @@ export const RecordCreation=(props)=>{
     return (
         <>
             <form onSubmit={handleSubmit((data)=>{
-                pageName==="createRecord"?createRecord(data):editRecord(data.userName,data.password);
+                pageName==="createRecord"?createRecord(data):editRecord(data);
             })}>
                 <div style={recordCreationStyle}>
                     <h1>精進記録登録フォーム</h1>
@@ -116,7 +119,7 @@ export const RecordCreation=(props)=>{
                             required:'必須項目です',
                             minLength:{value:3,message:'カテゴリは3文字以上で入力してください'},
                             maxLength:{value:20,message:'カテゴリは20文字以内で入力してください'}
-                        })} placeholder="category" type="text"/>
+                        })} placeholder="category" type="text" defaultValue={saveRecord.category}/>
                         <p style={{color:'red'}}>{errors.category?.message}</p> {/* エラー表示 */}
                     </div>
                     <div style={inputItem}>
@@ -126,7 +129,7 @@ export const RecordCreation=(props)=>{
                             required:'必須項目です',
                             minLength:{value:3,message:'問題番号は3文字以上で入力してください'},
                             maxLength:{value:20,message:'問題番号は20文字以内で入力してください'}
-                        })} placeholder="questionNumber" type="text"/>
+                        })} placeholder="questionNumber" type="text" defaultValue={saveRecord.question_number}/>
                         <p style={{color:'red'}}>{errors.questionNumber?.message}</p> {/* エラー表示 */}
                     </div>
                     <div style={inputItem}>
@@ -136,7 +139,7 @@ export const RecordCreation=(props)=>{
                             required:'必須項目です',
                             minLength:{value:3,message:'問題名は3文字以上で入力してください'},
                             maxLength:{value:20,message:'問題名は20文字以内で入力してください'}
-                        })} placeholder="questionName" type="text"/>
+                        })} placeholder="questionName" type="text" defaultValue={saveRecord.question_name}/>
                         <p style={{color:'red'}}>{errors.questionName?.message}</p> {/* エラー表示 */}
                     </div>
                     <div style={inputItem}>
@@ -146,7 +149,7 @@ export const RecordCreation=(props)=>{
                             required:'必須項目です',
                             minLength:{value:3,message:'コードリンクは3文字以上で入力してください'},
                             maxLength:{value:30,message:'コードリンクは30文字以内で入力してください'}
-                        })} placeholder="codeLink" type="text"/>
+                        })} placeholder="codeLink" type="text" defaultValue={saveRecord.code_link}/>
                         <p style={{color:'red'}}>{errors.codeLink?.message}</p> {/* エラー表示 */}
                     </div>
                     <div style={inputItem}>
@@ -154,21 +157,21 @@ export const RecordCreation=(props)=>{
                         <span style={noRequireStyle}>任意</span>
                         <textarea {...register("memo",{
                             maxLength:{value:20,message:'メモは20文字以内で入力してください'}
-                        })} placeholder="memo" type="text"></textarea>
+                        })} placeholder="memo" type="text" defaultValue={saveRecord.memo}></textarea>
                         <p style={{color:'red'}}>{errors.memo?.message}</p> {/* エラー表示 */}
                     </div>
                     <div style={inputItem}>
                         <label style={itemNameStyle}>解いた日</label>
                         <span style={noRequireStyle}>任意</span>
                         <input {...register("acDay",{
-                        })} placeholder="acDay" type="date"/>
+                        })} placeholder="acDay" type="date" defaultValue={saveRecord.ac_day}/>
                     </div>
-                    <input {...register("userName",{})} value={userName} type="hidden"/>
+                    <input {...register("userName",{})} defaultValue={userName} type="hidden"/>
                     {
                         pageName==="createRecord"&&<button style={signUpButtonStyle}>新規登録</button>
                     }
                     {
-                        pageName==="editRecord"&&<button style={loginButtonStyle}>更新</button>
+                        pageName==="editRecord"&&<button style={editButtonStyle}>更新</button>
                     }
                 </div>
             </form> 

@@ -49,7 +49,7 @@ const userNameText={
 
 export const Header=(props)=>{
 
-    const {userName,loginSuccess}=props;
+    const {userName}=props;
     console.log(userName);
     return (
         <div style={headerStyle}>
@@ -58,17 +58,17 @@ export const Header=(props)=>{
             </div>
             <ul style={startLists}>
                 {
-                    !loginSuccess&&
+                    userName===""&&
                     <>
                         <Link to="/signUp" style={startList}>新規登録</Link>
                         <Link to="/login" style={startList}>ログイン</Link>
                     </>
                 }
                 {   
-                    loginSuccess&&
+                    userName!==""&&
                     <>
                         <Link to="/record" style={userNameText}>{userName}</Link>
-                        <a href="/" style={startList}>ログアウト</a>
+                        <a href="/" style={startList} onClick={()=>{localStorage.setItem("userName","")}}>ログアウト</a>
                     </>
                 }
             </ul>

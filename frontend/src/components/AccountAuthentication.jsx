@@ -63,6 +63,7 @@ export const AccountAuthentication=(props)=>{
             axios.post(apiUrl,accountData)
                 .then(function () {
                     navigate('/');
+                    localStorage.setItem('userName',"");
                     setUserName("");
                     setPassword("");
                 })
@@ -82,6 +83,7 @@ export const AccountAuthentication=(props)=>{
             .then(function () {
                 navigate('/record');
                 setLoginSuccess(true);
+                localStorage.setItem('userName',userName);
                 setUserName(userName);
             })
             .catch(function (error) {

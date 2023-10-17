@@ -11,16 +11,18 @@ import {RecordCreation} from "./components/RecordCreation";
 
 
 export const App=()=> {
-    const [userName,setUserName]=useState("");
+    const [userName,setUserName]=useState(localStorage.getItem("userName"));
     const [loginSuccess,setLoginSuccess]=useState(false);
+    const [saveRecord,setSaveRecord]=useState({});
 
     return (
         <>
-            <Header userName={userName} loginSuccess={loginSuccess}/>
+            <Header userName={userName}/>
             <Routes>
                 <Route path="/" element={<Main/>} />
-                <Route path="/createRecord" element={<RecordCreation pageName={"createRecord"} userName={userName} setUserName={setUserName} setLoginSuccess={setLoginSuccess}/>} />
-                <Route path="/record" element={<Record pageName={"record"} userName={userName} setUserName={setUserName} setLoginSuccess={setLoginSuccess}/>} />
+                <Route path="/createRecord" element={<RecordCreation pageName={"createRecord"} userName={userName} saveRecord={saveRecord}/>} />
+                <Route path="/editRecord" element={<RecordCreation pageName={"editRecord"} userName={userName} saveRecord={saveRecord} />} />
+                <Route path="/record" element={<Record userName={userName} setSaveRecord={setSaveRecord}/>} />
                 <Route path="/signUp" element={<AccountAuthentication pageName={"signUp"} setUserName={setUserName} setLoginSuccess={setLoginSuccess}/>} />
                 <Route path="/login" element={<AccountAuthentication pageName={"login"} setUserName={setUserName} setLoginSuccess={setLoginSuccess}/>} />
             </Routes>
