@@ -101,18 +101,67 @@ export const AccountAuthentication=(props)=>{
                 <div style={accountAuthenticationStyle}>
                     <div style={inputItem}>
                         <label style={itemNameStyle}>ユーザー名</label>
-                        <input {...register("userName",{minLength:3,maxLength:15})} placeholder="userName" type="text"/>
+                        <input {...register("userName",{
+                            required:{
+                                value:true,
+                                message:'必須項目です'
+                            },
+                            minLength:{
+                                value:3,
+                                message:'ユーザー名は3文字以上で入力してください'
+                            },
+                            maxLength:{
+                                value:20,
+                                message:'ユーザー名は20文字以内で入力してください'
+                            }
+                        })} placeholder="userName" type="text"/>
                     </div>
                     <div style={inputItem}>
                         <label style={itemNameStyle}>パスワード</label>
-                        <input {...register("password",{minLength:3,maxLength:30})} placeholder="password" type="password"/>
+                        <input {...register("password",{
+                            required:{
+                                value:true,
+                                message:'必須項目です'
+                            },
+                            minLength:{
+                                value:5,
+                                message:'パスワードは5文字以上で入力してください'
+                            },
+                            maxLength:{
+                                value:20,
+                                message:'パスワードは20文字以内で入力してください'
+                            },
+                            pattern:{
+                                value:/^(?=.*[0-9])(?=.*[a-zA-Z]).+$/,
+                                message:"半角英字+半角数字で入力してください"
+                            }
+                        })} placeholder="password" type="password"/>
+                        <p style={{color:'red'}}>{errors.password?.message}</p> {/* エラー表示 */}
                     </div>
                     {
                         pageName==="signUp"&&
                         <>
                             <div style={inputItem}>
                                 <label style={itemNameStyle}>パスワード(確認)</label>
-                                <input {...register("password2",{maxLength:3,maxLength:30})} placeholder="password2" type="password"/>
+                                <input {...register("password2",{
+                                    required:{
+                                        value:true,
+                                        message:'必須項目です'
+                                    },
+                                    minLength:{
+                                        value:5,
+                                        message:'パスワードは5文字以上で入力してください'
+                                    },
+                                    maxLength:{
+                                        value:20,
+                                        message:'パスワードは20文字以内で入力してください'
+                                    },
+                                    pattern:{
+                                        value:/^(?=.*[0-9])(?=.*[a-zA-Z]).+$/,
+                                        message:"半角英字+半角数字で入力してください"
+                                    }
+                                })} placeholder="password2" type="password"/>
+                                <p style={{color:'red'}}>{errors.password2?.message}</p> {/* エラー表示 */}
                             </div>
                             <button style={signUpButtonStyle}>新規登録</button>
                         </>
@@ -120,8 +169,6 @@ export const AccountAuthentication=(props)=>{
                     {
                         pageName==="login"&&<button style={loginButtonStyle}>ログイン</button>
                     }
-                    {errors.userName && <p style={{color:"red"}}>ユーザー名は3文字以上15文字以内で入力してください。</p>}
-                    {errors.password && <p style={{color:"red"}}>パスワードは3文字以上30文字以内で入力してください。</p>}
                     {loginFailure && <p style={{color:"red"}}>ユーザー名かパスワードどちらか間違えています。</p>}
                     {usedUserName && <p style={{color:"red"}}>ユーザー名がすでに使われています。</p>}
                     {notMatchPassword && <p style={{color:"red"}}>パスワードが一致していません。</p>}
