@@ -1,5 +1,6 @@
 import React, { useState ,useEffect} from "react";
 import { useNavigate } from 'react-router-dom';
+import "./recordStyle.css";
 import axios from "axios";
 
 const box={
@@ -7,6 +8,38 @@ const box={
     padding:"0% 10% 25% 10%"
 };
 
+const editButton={
+    cursor:"pointer",
+    backgroundColor:"yellow",
+    borderRadius:"10%"
+}
+
+const deleteButton={
+    cursor:"pointer",
+    backgroundColor:"red",
+    color:"white",
+    borderRadius:"10%"
+}
+
+const insertButton={
+    cursor:"pointer",
+    backgroundColor:"blue",
+    color:"white",
+    marginBottom:"3%",
+    borderRadius:"10%",
+    fontSize:"100%"
+}
+
+export const columns = [
+    { header: "カテゴリ", accessor: "category" },
+    { header: "問題番号", accessor: "questionNumber" },
+    { header: "問題名", accessor: "questionName" },
+    { header: "コードリンク", accessor: "codeLink" },
+    { header: "メモ", accessor: "memo" },
+    { header: "解いた日", accessor: "acDay" },  
+    { header: "編集", accessor: "editLink" },
+    { header: "削除", accessor: "deleteLink" }, 
+];
 
 export const Record=(props)=>{
     const { userName,setSaveRecord} = props;
@@ -22,7 +55,6 @@ export const Record=(props)=>{
         setSaveRecord({});
         navigate('/createRecord');
     }
-
 
     const editRecord=(id)=>{
         const apiUrl="http://0.0.0.0/api/record/id/"+id;
@@ -56,37 +88,35 @@ export const Record=(props)=>{
     return (
         <div style={box}>
             <h1>精進記録</h1>
-            <button onClick={()=>{initRecord()}}>新規登録</button>
+            <button style={insertButton} onClick={()=>{initRecord()}}>新規登録</button>
                     
             <table border="2">
                 <tr>
-                    <th>カテゴリ</th>
-                    <th>問題番号</th>
-                    <th>問題名</th>
-                    <th>コードリンク</th>
-                    <th>メモ</th>
-                    <th>解いた日</th>
-                    <th>編集</th>
-                    <th>削除</th>
+                {
+                    columns.map((item)=>{
+                        return(
+                            <th>{item.header}</th>
+                        )
+                    })
+                }
                 </tr>
                 {
                     record.map((item)=>{
                         return (
                             <tr>
-                                <th>{item.category}</th>
-                                <th>{item.question_number}</th>
-                                <th>{item.question_name}</th>
-                                <th>{item.code_link}</th>
-                                <th>{item.memo}</th>
-                                <th>{item.ac_day}</th>
-                                <th><button onClick={()=>{editRecord(item.record_id)}}>編集リンク</button></th>
-                                <th><button onClick={()=>{deleteRecord(item.record_id)}}>削除リンク</button></th>
+                                <td>{item.category}</td>
+                                <td>{item.question_number}</td>
+                                <td>{item.question_name}</td>
+                                <td>{item.code_link}</td>
+                                <td>{item.memo}</td>
+                                <td>{item.ac_day}</td>
+                                <td><button style={editButton} onClick={()=>{editRecord(item.record_id)}}>編集リンク</button></td>
+                                <td><button style={deleteButton} onClick={()=>{deleteRecord(item.record_id)}}>削除リンク</button></td>
                             </tr>
                         )
                     })
                 }
             </table>
-            
         </div>
     );
 };
