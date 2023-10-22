@@ -19,13 +19,13 @@ const headerTitleStyle={
     padding:"1%",
     top: "0",
     left: "0",
-    width:"80%",
+    width:"70%",
     fontWeight:"bold"
 };
 
 
 const startLists={
-    width:"20%",
+    width:"25%",
     display:"flex",
     listStyle:"none"
 };
@@ -35,7 +35,7 @@ const startList={
     textDecoration:"none", 
     color:"white",
     fontSize:"80%",
-    padding:"0 5%"
+    padding:"0 1%"
 };
 
 const userNameText={
@@ -48,9 +48,7 @@ const userNameText={
 };
 
 export const Header=(props)=>{
-
     const {userName}=props;
-    console.log(userName);
     return (
         <div style={headerStyle}>
             <div style={headerTitleStyle}>

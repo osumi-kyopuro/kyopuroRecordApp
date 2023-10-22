@@ -22,7 +22,8 @@ th,td {
 
 th {
     border-top: solid 1px #444;
-    background-color: aqua;
+    background-color: black;
+    color:white;
 }
 
 th span {
