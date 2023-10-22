@@ -8,17 +8,12 @@ const box={
     padding:"0% 10% 25% 10%"
 };
 
-const editButton={
+const editDeleteButton={
     cursor:"pointer",
-    backgroundColor:"yellow",
-    borderRadius:"10%"
-}
-
-const deleteButton={
-    cursor:"pointer",
-    backgroundColor:"red",
+    backgroundColor:"gray",
     color:"white",
-    borderRadius:"10%"
+    borderRadius:"10%",
+    fontWeight:"bold"
 }
 
 const insertButton={
@@ -27,7 +22,8 @@ const insertButton={
     color:"white",
     marginBottom:"3%",
     borderRadius:"10%",
-    fontSize:"100%"
+    fontSize:"100%",
+    fontWeight:"bold"
 }
 
 export const columns = [
@@ -107,11 +103,11 @@ export const Record=(props)=>{
                                 <td>{item.category}</td>
                                 <td>{item.question_number}</td>
                                 <td>{item.question_name}</td>
-                                <td>{item.code_link}</td>
+                                <td><a href={item.code_link} target="_blank">コードリンク</a></td>
                                 <td>{item.memo}</td>
                                 <td>{item.ac_day}</td>
-                                <td><button style={editButton} onClick={()=>{editRecord(item.record_id)}}>編集リンク</button></td>
-                                <td><button style={deleteButton} onClick={()=>{deleteRecord(item.record_id)}}>削除リンク</button></td>
+                                <td><button style={editDeleteButton} onClick={()=>{editRecord(item.record_id)}}>編集</button></td>
+                                <td><button style={editDeleteButton} onClick={()=>{deleteRecord(item.record_id)}}>削除</button></td>
                             </tr>
                         )
                     })

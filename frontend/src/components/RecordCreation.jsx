@@ -148,7 +148,11 @@ export const RecordCreation=(props)=>{
                         <input {...register("codeLink",{
                             required:'必須項目です',
                             minLength:{value:3,message:'コードリンクは3文字以上で入力してください'},
-                            maxLength:{value:30,message:'コードリンクは30文字以内で入力してください'}
+                            maxLength:{value:100,message:'コードリンクは100文字以内で入力してください'},
+                            pattern:{
+                                value:/https?:\/\//,
+                                message:"http://かhttps://の入ったリンクを入力してください"
+                            }
                         })} placeholder="codeLink" type="text" defaultValue={saveRecord.code_link}/>
                         <p style={{color:'red'}}>{errors.codeLink?.message}</p> {/* エラー表示 */}
                     </div>
