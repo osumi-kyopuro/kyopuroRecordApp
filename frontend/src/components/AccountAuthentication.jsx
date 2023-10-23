@@ -44,7 +44,7 @@ export const AccountAuthentication=(props)=>{
     const [usedUserName,setUsedUserName]=useState(false);
     const [notMatchPassword,setNotMatchPassword]=useState(false);
     const navigate = useNavigate();
-    const { pageName,setUserName,setLoginSuccess} = props;
+    const { pageName,setUserName,setCreateUserSuccess} = props;
     const {register,handleSubmit,formState:{errors}}=useForm({});
 
     const createAccount=(userName,password,password2)=>{
@@ -62,6 +62,7 @@ export const AccountAuthentication=(props)=>{
             const accountData={'user_name':userName,'user_password':password};
             axios.post(apiUrl,accountData)
                 .then(function () {
+                    setCreateUserSuccess(true);
                     navigate('/');
                     localStorage.setItem('userName',"");
                     setUserName("");
@@ -82,7 +83,6 @@ export const AccountAuthentication=(props)=>{
         axios.get(apiUrl)
             .then(function () {
                 navigate('/record');
-                setLoginSuccess(true);
                 localStorage.setItem('userName',userName);
                 setUserName(userName);
             })

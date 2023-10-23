@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import axios from "axios";
@@ -56,11 +56,13 @@ const noRequireStyle={
 
 export const RecordCreation=(props)=>{
     const navigate = useNavigate();
-    const { pageName,userName,saveRecord} = props;
+    const { pageName,userName,saveRecord,createRecordSuccess,setCreateRecordSuccess,editRecordSuccess,setEditRecordSuccess, deleteRecordSuccess,setDeleteRecordSuccess} = props;
     const {register,handleSubmit,formState:{errors}}=useForm({});
+    useEffect(() => {
+        initSuccess();
+    },[]);
 
     const createRecord=(data)=>{
-        console.log(data.userName);
         const apiUrl="http://0.0.0.0/api/record/";
         const accountData={
             'user_name':data.userName,
@@ -73,7 +75,7 @@ export const RecordCreation=(props)=>{
         };
         axios.post(apiUrl,accountData)
             .then(function () {
-                console.log('success');
+                setCreateRecordSuccess(true);
                 navigate('/record');
             })
             .catch(function (error) {
@@ -97,11 +99,18 @@ export const RecordCreation=(props)=>{
         };
         axios.put(apiUrl,accountData)
             .then(function () {
+                setEditRecordSuccess(true);
                 navigate('/record');
             })
             .catch(function (error) {
                 console.log(error);
             });
+    }
+
+    const initSuccess=()=>{
+        setCreateRecordSuccess(false);
+        setEditRecordSuccess(false);
+        setDeleteRecordSuccess(false);
     }
 
 
