@@ -36,13 +36,13 @@ const modalStyle = {
     },
     content: {
         position: "absolute",
-        top: "5rem",
-        left: "5rem",
-        right: "5rem",
-        bottom: "30rem",
+        top: "10%",
+        left: "5%",
+        right: "5%",
+        bottom: "30%",
         backgroundColor: "paleturquoise",
-        borderRadius: "1rem",
-        padding: "1.5rem"
+        borderRadius: "1%",
+        padding: "2%"
     }
 };
 
@@ -80,7 +80,7 @@ export const columns = [
 ];
 
 export const Record=(props)=>{
-    const { userName,setSaveRecord} = props;
+    const { userName,setSaveRecord,createRecordSuccess,setCreateRecordSuccess,editRecordSuccess,setEditRecordSuccess, deleteRecordSuccess,setDeleteRecordSuccess} = props;
     const [record,setRecord]=useState([]);
     const [deleteConfirmRecord,setDeleteConfirmRecord]=useState([]);
     const [deleteId, setDeleteId] = useState(0);
@@ -134,11 +134,13 @@ export const Record=(props)=>{
                 const apiUrl='http://0.0.0.0/api/record/user/'+userName;
                 axios.get(apiUrl)
                     .then(res => setRecord(res.data));
+                initDeleteModal();
+                initSuccess();
+                setDeleteRecordSuccess(true);
             })
             .catch(function (error) {
                 console.log(error);
             });
-        initDeleteModal();
     }
 
     const initDeleteModal=()=>{
@@ -146,10 +148,19 @@ export const Record=(props)=>{
         setDeleteId(0);
     }
 
+    const initSuccess=()=>{
+        setCreateRecordSuccess(false);
+        setEditRecordSuccess(false);
+        setDeleteRecordSuccess(false);
+    }
+
     return (
         <div style={box}>
             <h1>精進記録</h1>
             <button style={insertButton} onClick={()=>{initRecord()}}>新規登録</button>
+            {createRecordSuccess&&<span style={{color:"green",fontWeight:"bold",marginLeft:"2%"}}>登録成功しました</span>}
+            {editRecordSuccess&&<span style={{color:"green",fontWeight:"bold",marginLeft:"2%"}}>更新成功しました</span>}
+            {deleteRecordSuccess&&<span style={{color:"green",fontWeight:"bold",marginLeft:"2%"}}>削除成功しました</span>}
             <Modal isOpen={modalIsOpen} style={modalStyle}>
                 <h1>本当に削除しますか？</h1>
                 <table border="2">

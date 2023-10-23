@@ -20,12 +20,16 @@ const message={
     transform: "translate(-50%,-50%)"
 }
 
-export const Main=()=>{
+export const Main=(props)=>{
     const {alt,width,height}=imgStyle;
+    const{createUserSuccess}=props;
     return (
-        <div style={box}>
-            <h1 style={message}>あなたの競プロ学習の助けになりたい！！</h1>
-            <img src={icon} alt={alt} width={width} height={height}/>  
-        </div>
+        <>
+            {createUserSuccess&&<span style={{color:"green",fontWeight:"bold",marginLeft:"2%"}}>登録成功しました</span>}
+            <div style={box}>
+                <h1 style={message}>あなたの競プロ学習の助けになりたい！！</h1>
+                <img src={icon} alt={alt} width={width} height={height}/>  
+            </div>
+        </>
     );
 };
