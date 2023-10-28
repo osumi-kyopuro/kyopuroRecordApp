@@ -23,9 +23,15 @@ services:
       test: ["CMD", "mysqladmin","ping","-h","localhost"]
       timeout: 20s
       retries: 10
-    networks:
-      - my_network
-  
+
+  frontend:
+    image: node
+    volumes:
+      - ./frontend:/frontend
+    command: ["sh", "-c", "cd frontend && npm install && npm start"]  
+    ports:
+      - 3000:3000  
+
   kyopurorecordapp:
     container_name: 'kyopurorecordapp'
     build:
@@ -39,17 +45,3 @@ services:
       mysql:
         condition: service_healthy
     command: ["uvicorn", "backend.app.main:app", "--host", "0.0.0.0", "--port", "80"]
-    networks:
-      - my_network
-    links:
-      - mysql
-
-
-networks:
-  my_network:
-    driver: bridge
-    ipam:
-      driver: default
-      config:
-        - subnet: 192.168.2.0/24
-          gateway: 192.168.2.1
