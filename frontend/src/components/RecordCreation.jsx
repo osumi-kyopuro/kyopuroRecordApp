@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import axios from "axios";
 
+const recordApiUrl = process.env.REACT_APP_RECORD_API_URL;
+
 const recordCreationStyle={
     textAlign:"center",
     width:"100%",
@@ -63,7 +65,7 @@ export const RecordCreation=(props)=>{
     },[]);
 
     const createRecord=(data)=>{
-        const apiUrl="http://127.0.0.1/api/record/";
+        const apiUrl=recordApiUrl;
         const accountData={
             'user_name':data.userName,
             'category':data.category,
@@ -87,7 +89,7 @@ export const RecordCreation=(props)=>{
 
     const editRecord=(data)=>{
         const id=saveRecord.record_id;
-        const apiUrl="http://127.0.0.1/api/record/id/"+id;
+        const apiUrl=`${recordApiUrl}id/${id}`;
         const accountData={
             'user_name':data.userName,
             'category':data.category,

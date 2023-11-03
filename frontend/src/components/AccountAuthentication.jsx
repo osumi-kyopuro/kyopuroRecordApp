@@ -3,6 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import axios from "axios";
 
+const userInfoApiUrl = process.env.REACT_APP_USER_INFO_API_URL;
+
+
 
 const accountAuthenticationStyle={
     textAlign:"center",
@@ -49,8 +52,8 @@ export const AccountAuthentication=(props)=>{
     const {register,handleSubmit,formState:{errors}}=useForm({});
 
     const createAccount=(userName,password,password2)=>{
-        Processing
-        const apiUrl="http://127.0.0.1/api/userInfo/user/"+userName;
+        const apiUrl=`${userInfoApiUrl}user/${userName}`;
+        console.log(apiUrl);
         axios.get(apiUrl)
             .then(function () {
                 setUsedUserName(true);
@@ -60,7 +63,7 @@ export const AccountAuthentication=(props)=>{
                 console.log(error);
             });
         if(!usedUserName&&password===password2){
-            const apiUrl="http://127.0.0.1/api/userInfo/";
+            const apiUrl=userInfoApiUrl;
             const accountData={'user_name':userName,'user_password':password};
             axios.post(apiUrl,accountData)
                 .then(function () {
@@ -81,7 +84,7 @@ export const AccountAuthentication=(props)=>{
     
 
     const loginAuthentication=(userName,password)=>{
-        const apiUrl="http://127.0.0.1/api/userInfo/authenticate/?user_name="+userName+"&user_password="+password;
+        const apiUrl=`${userInfoApiUrl}authenticate/?user_name=${userName}&user_password=${password}`;
         axios.get(apiUrl)
             .then(function () {
                 navigate('/record');

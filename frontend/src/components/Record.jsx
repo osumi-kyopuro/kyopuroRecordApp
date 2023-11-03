@@ -4,6 +4,8 @@ import "./recordStyle.css";
 import axios from "axios";
 import Modal from "react-modal";
 
+const recordApiUrl = process.env.REACT_APP_RECORD_API_URL;
+
 const box={
     position:"relative",
     padding:"0% 10% 25% 10%"
@@ -87,7 +89,7 @@ export const Record=(props)=>{
     const [modalIsOpen, setIsOpen] = useState(false);
     const navigate = useNavigate();
     useEffect(() => {
-        const apiUrl='http://127.0.0.1/api/record/user/'+userName;
+        const apiUrl=`${recordApiUrl}user/${userName}`;
         axios.get(apiUrl)
         .then(res => setRecord(res.data));
     },[]);
@@ -98,8 +100,7 @@ export const Record=(props)=>{
     }
 
     const editRecord=(id)=>{
-        const apiUrl="http://127.0.0.1/api/record/id/"+id;
-        console.log(id);
+        const apiUrl=`${recordApiUrl}id/${id}`;
         axios.get(apiUrl)
             .then(function (res) {
                 setSaveRecord(res.data);
@@ -112,7 +113,7 @@ export const Record=(props)=>{
     }
 
     const deleteConfirm=(id)=>{
-        const apiUrl="http://127.0.0.1/api/record/id/"+id;
+        const apiUrl=`${recordApiUrl}id/${id}`;
         axios.get(apiUrl)
             .then(function (res) {
                 console.log(res.data);
@@ -126,12 +127,12 @@ export const Record=(props)=>{
     }
 
     const deleteRecord=(id)=>{
-        const apiUrl="http://127.0.0.1/api/record/id/"+id;
+        const apiUrl=`${recordApiUrl}id/${id}`;
         console.log(id);
         axios.delete(apiUrl)
             .then(function (res) {
                 console.log(res.data);
-                const apiUrl='http://127.0.0.1/api/record/user/'+userName;
+                const apiUrl=`${recordApiUrl}user/${userName}`;
                 axios.get(apiUrl)
                     .then(res => setRecord(res.data));
                 initDeleteModal();
