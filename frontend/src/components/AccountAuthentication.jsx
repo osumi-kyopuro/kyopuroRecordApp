@@ -49,7 +49,6 @@ export const AccountAuthentication=(props)=>{
     const {register,handleSubmit,formState:{errors}}=useForm({});
 
     const createAccount=(userName,password,password2)=>{
-        Processing
         const apiUrl="http://127.0.0.1/api/userInfo/user/"+userName;
         axios.get(apiUrl)
             .then(function () {
