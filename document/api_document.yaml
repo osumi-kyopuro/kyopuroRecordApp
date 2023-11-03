@@ -6,7 +6,7 @@ info:
   version: "1.0.0"
 
 servers:
-  - url: "http://0.0.0.0:80"
+  - url: "http://127.0.0.1:80"
     description: "ローカル環境"
 
 

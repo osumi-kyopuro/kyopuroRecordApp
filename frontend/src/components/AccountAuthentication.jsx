@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import axios from "axios";
 
+
 const accountAuthenticationStyle={
     textAlign:"center",
     width:"100%",
@@ -48,7 +49,8 @@ export const AccountAuthentication=(props)=>{
     const {register,handleSubmit,formState:{errors}}=useForm({});
 
     const createAccount=(userName,password,password2)=>{
-        const apiUrl="http://0.0.0.0/api/userInfo/user/"+userName;
+        Processing
+        const apiUrl="http://127.0.0.1/api/userInfo/user/"+userName;
         axios.get(apiUrl)
             .then(function () {
                 setUsedUserName(true);
@@ -58,7 +60,7 @@ export const AccountAuthentication=(props)=>{
                 console.log(error);
             });
         if(!usedUserName&&password===password2){
-            const apiUrl="http://0.0.0.0/api/userInfo/";
+            const apiUrl="http://127.0.0.1/api/userInfo/";
             const accountData={'user_name':userName,'user_password':password};
             axios.post(apiUrl,accountData)
                 .then(function () {
@@ -79,7 +81,7 @@ export const AccountAuthentication=(props)=>{
     
 
     const loginAuthentication=(userName,password)=>{
-        const apiUrl="http://0.0.0.0/api/userInfo/authenticate/?user_name="+userName+"&user_password="+password;
+        const apiUrl="http://127.0.0.1/api/userInfo/authenticate/?user_name="+userName+"&user_password="+password;
         axios.get(apiUrl)
             .then(function () {
                 navigate('/record');
