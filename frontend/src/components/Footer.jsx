@@ -1,5 +1,5 @@
 import React from "react";
-import icon from "./icon.jpeg";
+import icon from "../image/icon.jpeg";
 
 const footerStyle={
     backgroundColor:"#808080",

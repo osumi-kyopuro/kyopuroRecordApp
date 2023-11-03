@@ -63,7 +63,7 @@ export const RecordCreation=(props)=>{
     },[]);
 
     const createRecord=(data)=>{
-        const apiUrl="http://0.0.0.0/api/record/";
+        const apiUrl="http://127.0.0.1/api/record/";
         const accountData={
             'user_name':data.userName,
             'category':data.category,
@@ -87,7 +87,7 @@ export const RecordCreation=(props)=>{
 
     const editRecord=(data)=>{
         const id=saveRecord.record_id;
-        const apiUrl="http://0.0.0.0/api/record/id/"+id;
+        const apiUrl="http://127.0.0.1/api/record/id/"+id;
         const accountData={
             'user_name':data.userName,
             'category':data.category,

@@ -87,7 +87,7 @@ export const Record=(props)=>{
     const [modalIsOpen, setIsOpen] = useState(false);
     const navigate = useNavigate();
     useEffect(() => {
-        const apiUrl='http://0.0.0.0/api/record/user/'+userName;
+        const apiUrl='http://127.0.0.1/api/record/user/'+userName;
         axios.get(apiUrl)
         .then(res => setRecord(res.data));
     },[]);
@@ -98,7 +98,7 @@ export const Record=(props)=>{
     }
 
     const editRecord=(id)=>{
-        const apiUrl="http://0.0.0.0/api/record/id/"+id;
+        const apiUrl="http://127.0.0.1/api/record/id/"+id;
         console.log(id);
         axios.get(apiUrl)
             .then(function (res) {
@@ -112,7 +112,7 @@ export const Record=(props)=>{
     }
 
     const deleteConfirm=(id)=>{
-        const apiUrl="http://0.0.0.0/api/record/id/"+id;
+        const apiUrl="http://127.0.0.1/api/record/id/"+id;
         axios.get(apiUrl)
             .then(function (res) {
                 console.log(res.data);
@@ -126,12 +126,12 @@ export const Record=(props)=>{
     }
 
     const deleteRecord=(id)=>{
-        const apiUrl="http://0.0.0.0/api/record/id/"+id;
+        const apiUrl="http://127.0.0.1/api/record/id/"+id;
         console.log(id);
         axios.delete(apiUrl)
             .then(function (res) {
                 console.log(res.data);
-                const apiUrl='http://0.0.0.0/api/record/user/'+userName;
+                const apiUrl='http://127.0.0.1/api/record/user/'+userName;
                 axios.get(apiUrl)
                     .then(res => setRecord(res.data));
                 initDeleteModal();

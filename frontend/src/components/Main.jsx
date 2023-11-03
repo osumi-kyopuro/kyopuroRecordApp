@@ -1,5 +1,5 @@
 import React from "react";
-import icon from "./atcoder.png";
+import icon from "../image/atcoder.png";
 
 
 const imgStyle={
